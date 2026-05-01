@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Folder {
+  id       Int    @id @default(autoincrement())
+  name     String
+  parentId Int?   @map("parent_id")
+
+  parent   Folder?  @relation("FolderFolder", fields: [parentId], references: [id])
+  children Folder[] @relation("FolderFolder")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([parentId])
+  @@map("folders")
+}

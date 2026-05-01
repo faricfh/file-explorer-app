@@ -1,7 +1,7 @@
 import express, { type Express, type Request, type Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import folderRoutes from "./routes/folder.route";
+import folderRoutes from "@/routes/folder.route";
 
 dotenv.config();
 

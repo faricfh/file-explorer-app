@@ -11,7 +11,7 @@ model Folder {
   name     String
   parentId Int?   @map("parent_id")
 
-  parent   Folder?  @relation("FolderFolder", fields: [parentId], references: [id])
+  parent   Folder?  @relation("FolderFolder", fields: [parentId], references: [id], onDelete: Cascade)
   children Folder[] @relation("FolderFolder")
 
   createdAt DateTime @default(now()) @map("created_at")

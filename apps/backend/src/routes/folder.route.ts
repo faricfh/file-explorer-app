@@ -24,7 +24,7 @@ folderRoutes.get(
   getFolderById,
 );
 folderRoutes.post("/folders", validate(createFolderValidator), createFolder);
-folderRoutes.put("/folders/:id", validate(updateFolderValidator), updateFolder);
+folderRoutes.patch("/folders/:id", validate(updateFolderValidator), updateFolder);
 folderRoutes.delete(
   "/folders/:id",
   validate(folderParamsValidator),

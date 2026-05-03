@@ -26,7 +26,7 @@ export const createFolder = async (name: string, parentId?: number) => {
 
 export const updateFolder = async (
   id: number,
-  name: string,
+  name?: string,
   parentId?: number,
 ) => {
   if (id === parentId) {

@@ -39,7 +39,12 @@ function handleSubmit(name: string) {
     <div class="left-panel__content">
       <div v-if="isLoading">Loading...</div>
       <div v-else>
+        <div v-if="!folderTree.length">
+          No folders available
+        </div>
+
         <FolderTree
+          v-else
           :nodes="folderTree"
           :selectedFolder="selectedFolder"
           :openFolderIds="openFolderIds"

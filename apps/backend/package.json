@@ -8,6 +8,7 @@
     "build": "tsc && tsc-alias",
     "start": "node dist/app.js",
     "migrate": "prisma migrate dev",
+    "generate": "prisma generate",
     "seed": "prisma db seed"
   },
   "dependencies": {

@@ -13,6 +13,7 @@
     "start:backend": "npm run start -w apps/backend",
     "start": "npm run start:backend",
     "db:migrate": "npm --prefix apps/backend run migrate",
+    "db:client": "npm --prefix apps/backend run generate",
     "db:seed": "npm --prefix apps/backend run seed"
   },
   "dependencies": {

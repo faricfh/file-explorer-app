@@ -92,6 +92,12 @@ Run migration:
 npm run db:migrate
 ```
 
+Generate database client:
+
+```bash
+npm run db:client
+```
+
 Seed initial data (optional):
 
 ```bash
@@ -136,6 +142,7 @@ npm run dev:frontend
 
 ```bash
 npm run db:migrate
+npm run db:client
 npm run db:seed
 ```
 

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "tsx watch src/app.ts",
     "build": "tsc && tsc-alias",
-    "start": "node dist/app.js"
+    "start": "node dist/app.js",
+    "seed": "prisma db seed"
   },
   "dependencies": {
     "@prisma/adapter-mariadb": "^7.8.0",

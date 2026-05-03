@@ -12,7 +12,8 @@
     "build": "npm run build:backend && npm run build:frontend",
     "start:backend": "npm run start -w apps/backend",
     "start": "npm run start:backend",
-    "seed:backend": "npm --prefix apps/backend run seed"
+    "db:migrate": "npm --prefix apps/backend run migrate",
+    "db:seed": "npm --prefix apps/backend run seed"
   },
   "dependencies": {
     "concurrently": "^9.2.1"

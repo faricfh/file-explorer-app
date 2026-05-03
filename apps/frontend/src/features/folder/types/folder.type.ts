@@ -11,5 +11,8 @@ export interface FolderTree {
   children: FolderTree[]
 }
 
-export type CreateFolderPayload = Pick<Folder, 'name' | 'parentId'>
+export type CreateFolderPayload = {
+  name: string
+  parentId?: number | null
+}
 export type UpdateFolderPayload = Partial<CreateFolderPayload>

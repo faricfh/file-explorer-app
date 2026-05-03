@@ -12,18 +12,36 @@ export function useFolder() {
   const selectedFolder = ref<FolderTree | null>(null)
   const isLoading = ref(false)
   const error = ref<string | null>(null)
+  const openFolderIds = ref<Set<number>>(new Set())
 
-  async function fetchFolderTree() {
-    isLoading.value = true
+  function toggleFolder(id: number) {
+    if (openFolderIds.value.has(id)) {
+      openFolderIds.value.delete(id)
+    } else {
+      openFolderIds.value.add(id)
+    }
+  }
+
+  async function fetchFolderTree(options?: { silent?: boolean }) {
+    if (!options?.silent) {
+      isLoading.value = true
+    }
+
     error.value = null
 
     try {
       const response = await folderService.getTree()
       folderTree.value = response.data
+
+      if (selectedFolder.value) {
+        selectedFolder.value = findFolder(response.data, selectedFolder.value.id) ?? null
+      }
     } catch (err: unknown) {
       error.value = (err as ApiError).message
     } finally {
-      isLoading.value = false
+      if (!options?.silent) {
+        isLoading.value = false
+      }
     }
   }
 
@@ -32,44 +50,35 @@ export function useFolder() {
   }
 
   async function createFolder(payload: CreateFolderPayload) {
-    isLoading.value = true
     error.value = null
 
     try {
       await folderService.create(payload)
-      await fetchFolderTree()
+      await fetchFolderTree({ silent: true })
     } catch (err) {
       error.value = (err as ApiError).message
-    } finally {
-      isLoading.value = false
     }
   }
 
   async function updateFolder(id: number, payload: UpdateFolderPayload) {
-    isLoading.value = true
     error.value = null
 
     try {
       await folderService.update(id, payload)
-      await fetchFolderTree()
+      await fetchFolderTree({ silent: true })
     } catch (err) {
       error.value = (err as ApiError).message
-    } finally {
-      isLoading.value = false
     }
   }
 
   async function deleteFolder(id: number) {
-    isLoading.value = true
     error.value = null
 
     try {
       await folderService.delete(id)
-      await fetchFolderTree()
+      await fetchFolderTree({ silent: true })
     } catch (err) {
       error.value = (err as ApiError).message
-    } finally {
-      isLoading.value = false
     }
   }
 
@@ -78,10 +87,21 @@ export function useFolder() {
     selectedFolder,
     isLoading,
     error,
+    openFolderIds,
     fetchFolderTree,
     selectFolder,
     createFolder,
     updateFolder,
     deleteFolder,
+    toggleFolder,
   }
+}
+
+function findFolder(folders: FolderTree[], id: number): FolderTree | null {
+  for (const folder of folders) {
+    if (folder.id === id) return folder
+    const found = findFolder(folder.children, id)
+    if (found) return found
+  }
+  return null
 }

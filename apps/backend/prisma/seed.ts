@@ -1,5 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-import prisma from "@/lib/prisma";
+import prisma from "../src/lib/prisma";
 
 type FolderNode = {
   name: string;
